@@ -47,6 +47,7 @@ class NBNoVNC(Configurable):
 class NoVNCHandler(SupervisorHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
     def initialize(self, state):
+        self.log.info("INFO STATE %s" % state)
         # with open('novnc.debug', 'a') as db:
             # print('NOVNCHandler INIT', state, file=db)
         super().initialize(state)
@@ -98,10 +99,8 @@ class NoVNCHandler(SupervisorHandler):
         how to use novnc, rather than a supported frontend, so we do not use
         it.
         '''
-        self.log.info("INFO GET", path)
-        self.log.debug("DEBUG GET", path)
-        print('STDERR GET', path, file=sys.stderr)
-        print('STDOUT GET', path)
+        self.log.info("INFO GET " + path)
+        self.log.debug("DEBUG GET " + path)
         if len(path) == 0:
             filename = 'vnc.html'
             if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
