@@ -44,7 +44,7 @@ class NBNoVNC(Configurable):
 class NoVNCHandler(SupervisorHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
     def initialize(self, state):
-        print("NoVNCHandler Init: %s" % state)
+        # print("NoVNCHandler Init: %s" % state)
         super().initialize(state)
         self.c = NBNoVNC(config=self.config)
         # This is racy because we don't immediately start the VNC server.
@@ -98,6 +98,7 @@ class NoVNCHandler(SupervisorHandler):
             filename = 'vnc.html'
             if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
                 path = filename
+        path='foobar'
         return await super().get(path)
 
 def setup_handlers(web_app):
