@@ -10,6 +10,8 @@ from traitlets.config.configurable import Configurable
 
 from nbserverproxy.handlers import AddSlashHandler, SuperviseAndProxyHandler
 
+debugfile = open('/tmp/nonvc.debug', 'w')
+
 class SupervisorHandler(SuperviseAndProxyHandler):
     '''Supervise supervisord.'''
 
@@ -29,9 +31,7 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def get_cmd(self):
         filename = self.write_conf()
-        self.log.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-        self.log.debug('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
-        print("SGET", filename, file=sys.stderr)
+        print("SGET", filename, file=debugfile)
         return [ "supervisord", "-c", filename, "--nodaemon" ]
 
 class NBNoVNC(Configurable):
@@ -47,7 +47,7 @@ class NBNoVNC(Configurable):
 class NoVNCHandler(SupervisorHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
     def initialize(self, state):
-        print('NOVNCHandler INIT', state)
+        print('NOVNCHandler INIT', state, file=debugfile)
         super().initialize(state)
         self.c = NBNoVNC(config=self.config)
         # This is racy because we don't immediately start the VNC server.
@@ -97,7 +97,7 @@ class NoVNCHandler(SupervisorHandler):
         how to use novnc, rather than a supported frontend, so we do not use
         it.
         '''
-        print('NOVNC GET', path)
+        print('NOVNC GET', path, file=debugfile)
         if len(path) == 0:
             filename = 'vnc.html'
             if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
