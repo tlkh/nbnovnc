@@ -1,5 +1,5 @@
 import configparser
-import os
+import os, sys
 import socket
 import tempfile
 
@@ -29,7 +29,7 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def get_cmd(self):
         filename = self.write_conf()
-        print("SGET", filename)
+        print("SGET", filename, file=sys.stderr)
         return [ "supervisord", "-c", filename, "--nodaemon" ]
 
 class NBNoVNC(Configurable):
@@ -95,8 +95,7 @@ class NoVNCHandler(SupervisorHandler):
         how to use novnc, rather than a supported frontend, so we do not use
         it.
         '''
-        print('GET', path)
-        print('DIR', self.c.novnc_directory)
+        print('NOVNC GET', path)
         if len(path) == 0:
             filename = 'vnc.html'
             if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
