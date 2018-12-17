@@ -40,7 +40,7 @@ class NBNoVNC(Configurable):
         help="Path to noVNC web assets.")
     vnc_command = Unicode(u"xinit -- /usr/bin/Xtigervnc :{display} -geometry {geometry} -depth {depth}", config=True,
         help="Command to start VNC server. Contains string replacement fields.")
-    websockify_command = Unicode(u"websockify --web {novnc_directory} --heartbeat {heartbeat} {port} localhost:{vnc_port}", config=True,
+    websockify_command = Unicode(u"/apps/share64/debian7/noVNC/utils/websockify/websockify.py --web {novnc_directory} --heartbeat {heartbeat} {port} localhost:{vnc_port}", config=True,
         help="websockify command. Contains string replacement fields.")
 
 class NoVNCHandler(SupervisorHandler):
