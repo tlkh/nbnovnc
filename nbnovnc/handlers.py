@@ -29,6 +29,8 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def get_cmd(self):
         filename = self.write_conf()
+        self.log.info('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+        self.log.debug('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD')
         print("SGET", filename, file=sys.stderr)
         return [ "supervisord", "-c", filename, "--nodaemon" ]
 
