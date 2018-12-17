@@ -30,7 +30,7 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def get_cmd(self):
         filename = self.write_conf()
-        with open('/tmp/nonvc.debug', 'a') as db:
+        with open('novnc.debug', 'a') as db:
             print("SGET", filename, file=db)
         return [ "supervisord", "-c", filename, "--nodaemon" ]
 
@@ -47,7 +47,7 @@ class NBNoVNC(Configurable):
 class NoVNCHandler(SupervisorHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
     def initialize(self, state):
-        with open('/tmp/nonvc.debug', 'a') as db:
+        with open('novnc.debug', 'a') as db:
             print('NOVNCHandler INIT', state, file=db)
         super().initialize(state)
         self.c = NBNoVNC(config=self.config)
@@ -98,7 +98,7 @@ class NoVNCHandler(SupervisorHandler):
         how to use novnc, rather than a supported frontend, so we do not use
         it.
         '''
-        with open('/tmp/nonvc.debug', 'a') as db:
+        with open('novnc.debug', 'a') as db:
             print('NOVNC GET', path, file=db)
         if len(path) == 0:
             filename = 'vnc.html'
