@@ -29,14 +29,15 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def get_cmd(self):
         filename = self.write_conf()
+        print("SGET", filename)
         return [ "supervisord", "-c", filename, "--nodaemon" ]
 
 class NBNoVNC(Configurable):
     geometry = Unicode(u"1024x768", help="Desktop geometry.", config=True)
     depth = Integer(24, help="Desktop display depth.", config=True)
-    novnc_directory = Unicode(u"/usr/share/novnc", config=True,
+    novnc_directory = Unicode(u"/apps/share64/debian7/noVNC", config=True,
         help="Path to noVNC web assets.")
-    vnc_command = Unicode(u"xinit -- /usr/bin/Xtightvnc :{display} -geometry {geometry} -depth {depth}", config=True,
+    vnc_command = Unicode(u"xinit -- /usr/bin/Xtigervnc :{display} -geometry {geometry} -depth {depth}", config=True,
         help="Command to start VNC server. Contains string replacement fields.")
     websockify_command = Unicode(u"websockify --web {novnc_directory} --heartbeat {heartbeat} {port} localhost:{vnc_port}", config=True,
         help="websockify command. Contains string replacement fields.")
@@ -44,6 +45,7 @@ class NBNoVNC(Configurable):
 class NoVNCHandler(SupervisorHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
     def initialize(self, state):
+        print('NOVNCHandler INIT', state)
         super().initialize(state)
         self.c = NBNoVNC(config=self.config)
         # This is racy because we don't immediately start the VNC server.
@@ -93,6 +95,8 @@ class NoVNCHandler(SupervisorHandler):
         how to use novnc, rather than a supported frontend, so we do not use
         it.
         '''
+        print('GET', path)
+        print('DIR', self.c.novnc_directory)
         if len(path) == 0:
             filename = 'vnc.html'
             if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
