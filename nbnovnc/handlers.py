@@ -1,5 +1,5 @@
 import configparser
-import os, sys
+import os
 import socket
 import tempfile
 
@@ -9,7 +9,6 @@ from traitlets import Unicode, Integer
 from traitlets.config.configurable import Configurable
 
 from nbserverproxy.handlers import AddSlashHandler, SuperviseAndProxyHandler
-
 
 class SupervisorHandler(SuperviseAndProxyHandler):
     '''Supervise supervisord.'''
@@ -30,8 +29,6 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def get_cmd(self):
         filename = self.write_conf()
-        # with open('novnc.debug', 'a') as db:
-        #     print("SGET", filename, file=db)
         return [ "supervisord", "-c", filename, "--nodaemon" ]
 
 class NBNoVNC(Configurable):
@@ -41,15 +38,13 @@ class NBNoVNC(Configurable):
         help="Path to noVNC web assets.")
     vnc_command = Unicode(u"xinit -- /usr/bin/Xtigervnc :{display} -geometry {geometry} -depth {depth}", config=True,
         help="Command to start VNC server. Contains string replacement fields.")
-    websockify_command = Unicode(u"/apps/share64/debian7/noVNC/utils/websockify/websockify.py --web {novnc_directory} --heartbeat {heartbeat} {port} localhost:{vnc_port}", config=True,
+    websockify_command = Unicode(u"websockify --web {novnc_directory} --heartbeat {heartbeat} {port} localhost:{vnc_port}", config=True,
         help="websockify command. Contains string replacement fields.")
 
 class NoVNCHandler(SupervisorHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
     def initialize(self, state):
-        self.log.info("INFO STATE %s" % state)
-        # with open('novnc.debug', 'a') as db:
-            # print('NOVNCHandler INIT', state, file=db)
+        print("NoVNCHandler Init: %s" % state)
         super().initialize(state)
         self.c = NBNoVNC(config=self.config)
         # This is racy because we don't immediately start the VNC server.
@@ -99,8 +94,6 @@ class NoVNCHandler(SupervisorHandler):
         how to use novnc, rather than a supported frontend, so we do not use
         it.
         '''
-        self.log.info("INFO GET " + path)
-        self.log.debug("DEBUG GET " + path)
         if len(path) == 0:
             filename = 'vnc.html'
             if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
