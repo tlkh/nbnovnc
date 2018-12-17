@@ -17,7 +17,9 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def supervisor_config(self):
         config = configparser.ConfigParser()
-        config['supervisord'] = {}
+        config['supervisord'] = {'nodaemon': 'true'}
+        config['inet_http_server'] = {'port': '127.0.0.1:9001'}
+        config['rpcinterface:supervisor'] = {'supervisor.rpcinterface_factory': 'supervisor.rpcinterface:make_main_rpcinterface'}
         return config
 
     def write_conf(self):
@@ -29,7 +31,7 @@ class SupervisorHandler(SuperviseAndProxyHandler):
 
     def get_cmd(self):
         filename = self.write_conf()
-        return [ "supervisord", "-c", filename, "--nodaemon" ]
+        return ["supervisord", "-c", filename, "--nodaemon"]
 
 class NBNoVNC(Configurable):
     geometry = Unicode(u"1024x768", help="Desktop geometry.", config=True)
@@ -98,7 +100,6 @@ class NoVNCHandler(SupervisorHandler):
             filename = 'vnc.html'
             if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
                 path = filename
-        path='foobar'
         return await super().get(path)
 
 def setup_handlers(web_app):
