@@ -1,4 +1,3 @@
-import os
 from notebook.utils import url_path_join as ujoin
 from nbserverproxy.handlers import AddSlashHandler, SuperviseAndProxyHandler
 
@@ -20,9 +19,7 @@ class NoVNCHandler(SuperviseAndProxyHandler):
         it.
         '''
         if len(path) == 0:
-            filename = 'vnc.html'
-            if os.path.exists(os.path.join(self.c.novnc_directory, filename)):
-                path = filename
+            path = 'vnc.html'
         return await super().get(path)
 
 def setup_handlers(web_app):
