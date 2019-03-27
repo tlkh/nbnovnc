@@ -1,15 +1,22 @@
+import os
 from notebook.utils import url_path_join as ujoin
 from nbserverproxy.handlers import AddSlashHandler, SuperviseAndProxyHandler
 
 class NoVNCHandler(SuperviseAndProxyHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
     def initialize(self, state):
-        # print("NoVNCHandler Init: %s" % state)
+        print("NoVNCHandler Init: %s" % state)
+        if not 'vnc' in state:
+             state['vnc'] = True
+             os.system('/usr/bin/tigervncserver -SecurityTypes None :1')
         super().initialize(state)
 
     def get_cmd(self):
-        return ['/apps/share64/debian7/noVNC/startNB']
-
+        return ['/apps/share64/debian7/noVNC-1.0.0/utils/websockify/run',
+                 str(self.port),
+                 'localhost:5901',
+                 '--web=/apps/share64/debian7/noVNC'] 
+    
     async def get(self, path):
         '''
         When clients visit novnc/, actually get novnc/vnc.html.
