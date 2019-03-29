@@ -1,6 +1,6 @@
 import os
 from notebook.utils import url_path_join as ujoin
-from nbserverproxy.handlers import AddSlashHandler, SuperviseAndProxyHandler
+from jupyter_server_proxy.handlers import AddSlashHandler, SuperviseAndProxyHandler
 
 class NoVNCHandler(SuperviseAndProxyHandler):
     '''Supervise novnc, websockify, and a VNC server.'''
