@@ -12,7 +12,7 @@ setuptools.setup(
 	classifiers=['Framework :: Jupyter'],
     install_requires=[
         'pyzmq >= 17',
-        'tornado = 5.1.1',
+        'tornado == 5.1.1',
         'notebook',
         'jupyter-server-proxy'
     ],
