@@ -17,5 +17,4 @@ setuptools.setup(
         'notebook',
         'jupyter-server-proxy'
     ],
-    package_data={'nbnovnc': ['static/*']},
 )
