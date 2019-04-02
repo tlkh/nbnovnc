@@ -12,10 +12,10 @@ class NoVNCHandler(SuperviseAndProxyHandler):
         super().initialize(state)
 
     def get_cmd(self):
-        return ['/apps/share64/debian7/noVNC/utils/websockify/run',
+        return ['/opt/noVNC/utils/websockify/run',
                  str(self.port),
                  'localhost:5901',
-                 '--web=/apps/share64/debian7/noVNC'] 
+                 '--web=/opt/noVNC'] 
     
     async def get(self, path):
         '''
