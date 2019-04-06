@@ -23,7 +23,7 @@ define(function(require) {
             .attr('tabindex', '-1')
             .attr('href', base_url + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1')
             .attr('target', '_blank')
-            .text('View Desktop');
+            .text('VNC Desktop');
 
         /* add the link to the item and
          * the item to the menu */
