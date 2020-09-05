@@ -29,8 +29,7 @@ import '../style/index.css';
 const extension: JupyterFrontEndPlugin<void> = {
   id: '@tlkh/jupyterlab-vnc:plugin',
   autoStart: true,
-  requires: [ICommandPalette, ILayoutRestorer, IMainMenu, ISettingRegistry],
-  optional: [ILauncher],
+  requires: [ILauncher],
   activate: (app: JupyterFrontEnd, launcher: ILauncher) => {
     let commandId = 'x11vnc:open';
     app.commands.addCommand(commandId, {
