@@ -1,4 +1,4 @@
-import { PageConfig } from '@jupyterlab/coreutils';
+//import { PageConfig } from '@jupyterlab/coreutils';
 
 import {
   JupyterFrontEnd, JupyterFrontEndPlugin
@@ -31,6 +31,7 @@ const extension: JupyterFrontEndPlugin<void> = {
       command: commandId,
       category: 'Other'
     };
+    command.kernelIconUrl =  "https://cdn2.iconfinder.com/data/icons/font-awesome/1792/desktop-512.png";
     launcher.add(command);
   }
 }
@@ -39,15 +40,13 @@ const extension: JupyterFrontEndPlugin<void> = {
 namespace Private {
   let VNC_URL: string;
 
-  let base_url = PageConfig.getBaseUrl()
-
   export function getUrl(): string {
     if (!VNC_URL) {
       let theUrl = window.location.pathname;
       theUrl = theUrl.replace(/lab\/?$/, "");
       //VNC_URL=theUrl+'proxy/6080/vnc_lite.html?path='+theUrl+'proxy/6080';
       //base_url + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1'
-      VNC_URL = theUrl + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1';
+      VNC_URL = theUrl + 'novnc/?host=' + window.location.host + 'novnc/&resize=remote&autoconnect=1';
     }
     return VNC_URL;
   }
