@@ -31,13 +31,19 @@ const extension: JupyterFrontEndPlugin<void> = {
   autoStart: true,
   requires: [ICommandPalette, ILayoutRestorer, IMainMenu, ISettingRegistry],
   optional: [ILauncher],
-  activate: (app: JupyterFrontEnd) => {
-    app.commands.addCommand('x11vnc:open', {
+  activate: (app: JupyterLab, launcher: ILauncher) => {
+    let commandId = 'x11vnc:open';
+    app.commands.addCommand(commandId, {
       label: 'Open Desktop',
       execute: () => {
         window.open(Private.getUrl(), '_blank');
       }
     });
+    let command : ILauncher.IItemOptions = {
+      command: commandId,
+      category: 'Other'
+    };
+    launcher.add(command);
   }
 }
 
