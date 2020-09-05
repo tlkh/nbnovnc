@@ -24,7 +24,7 @@ import {
 } from '@lumino/coreutils'
 
 import {
-  JupyterLab, JupyterFrontEndPlugin, ILayoutRestorer
+  JupyterFrontEnd, JupyterFrontEndPlugin, ILayoutRestorer
 } from '@jupyterlab/application';
 
 import {
@@ -65,7 +65,7 @@ export const IX11vncTracker = new Token<IX11vncTracker>('@tlkh/jupyterlab-vnc:pl
  * Acticate X11 VNC Widget
  */
 function activate(
-  app: JupyterLab,
+  app: JupyterFrontEnd,
   palette: ICommandPalette,
   restorer: ILayoutRestorer,
   menu: IMainMenu,
