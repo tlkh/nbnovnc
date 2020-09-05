@@ -1,30 +1,30 @@
 import {
   Message
-} from '@phosphor/messaging';
+} from '@lumino/messaging';
 
 //import {
 //Widget
-//} from '@phosphor/widgets';
+//} from '@lumino/widgets';
 
 import {
   ICommandPalette,
-  InstanceTracker,
-  IInstanceTracker,
+  WidgetTracker,
+  IWidgetTracker,
   IFrame
 } from '@jupyterlab/apputils';
 
 import {
   ISettingRegistry
-} from '@jupyterlab/coreutils';
+} from '@jupyterlab/settingregistry';
 
 import {
   JSONExt,
   JSONObject,
   Token
-} from '@phosphor/coreutils'
+} from '@lumino/coreutils'
 
 import {
-  JupyterLab, JupyterLabPlugin, ILayoutRestorer
+  JupyterLab, JupyterFrontEndPlugin, ILayoutRestorer
 } from '@jupyterlab/application';
 
 import {
@@ -58,7 +58,7 @@ class X11vncWidget extends IFrame {
   }
 }
 
-interface IX11vncTracker extends IInstanceTracker<X11vncWidget> {};
+interface IX11vncTracker extends IWidgetTracker<X11vncWidget> {};
 export const IX11vncTracker = new Token<IX11vncTracker>('@tlkh/jupyterlab-vnc:plugin');
 
 /**
@@ -92,7 +92,7 @@ function activate(
         }
         if (!x11vncWidget.isAttached) {
           // Attach the widget to the main work area if it's not there
-          app.shell.addToMainArea(x11vncWidget);
+          app.shell.add(x11vncWidget, 'main');
         } else {
           // Update the widget
           x11vncWidget.update();
@@ -121,7 +121,7 @@ function activate(
   }
 
   // Track and restore the X11 VNC Widget State
-  let tracker = new InstanceTracker<X11vncWidget>({ namespace: 'x11vnc' });
+  let tracker = new WidgetTracker<X11vncWidget>({ namespace: 'x11vnc' });
   restorer.restore(tracker, {
     command: command,
     args: () => JSONExt.emptyObject,
@@ -156,7 +156,7 @@ function activate(
 /**
  * Initialization data for the jupyterlab-vnc extension.
  */
-const extension: JupyterLabPlugin<IX11vncTracker> = {
+const extension: JupyterFrontEndPlugin<IX11vncTracker> = {
   id: '@tlkh/jupyterlab-vnc:plugin',
   autoStart: true,
   requires: [ICommandPalette, ILayoutRestorer, IMainMenu, ISettingRegistry],
