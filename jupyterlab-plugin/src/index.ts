@@ -156,7 +156,7 @@ function activate(
 /**
  * Initialization data for the jupyterlab-vnc extension.
  */
-const extension: JupyterFrontEndPlugin<IX11vncTracker> = {
+const extension: JupyterFrontEndPlugin<void> = {
   id: '@tlkh/jupyterlab-vnc:plugin',
   autoStart: true,
   requires: [ICommandPalette, ILayoutRestorer, IMainMenu, ISettingRegistry],
