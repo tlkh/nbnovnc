@@ -23,7 +23,7 @@ import {
   Token
 } from '@lumino/coreutils'
 
-import { PageConfig } from '@jupyterlab/coreutils';
+//import { PageConfig } from '@jupyterlab/coreutils';
 
 import {
   JupyterFrontEnd, JupyterFrontEndPlugin, ILayoutRestorer
@@ -158,8 +158,8 @@ function activate(
     console.error(reason.message);
   });
 
-  return Promise.resolve(tracker);
-}*/
+  return Promise.resolve(tracker);*/
+}
 
 
 /**
