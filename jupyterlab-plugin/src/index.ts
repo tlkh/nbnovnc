@@ -29,7 +29,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     });
     let command : ILauncher.IItemOptions = {
       command: commandId,
-      category: 'Other'
+      category: 'Notebook'
     };
     command.kernelIconUrl =  "https://cdn2.iconfinder.com/data/icons/font-awesome/1792/desktop-512.png";
     launcher.add(command);
@@ -46,7 +46,7 @@ namespace Private {
       theUrl = theUrl.replace(/lab\/?$/, "");
       //VNC_URL=theUrl+'proxy/6080/vnc_lite.html?path='+theUrl+'proxy/6080';
       //base_url + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1'
-      VNC_URL = theUrl + 'novnc/?host=' + window.location.host + 'novnc/&resize=remote&autoconnect=1';
+      VNC_URL = theUrl + 'novnc/?host=' + window.location.host + '/novnc/&resize=remote&autoconnect=1';
     }
     return VNC_URL;
   }
