@@ -81,6 +81,7 @@ function activate(
 
   // Add an application command
   const command: string = 'x11vnc:open';
+  /*
   app.commands.addCommand(command, {
       label: 'Open Desktop',
       execute: () => {
@@ -102,7 +103,13 @@ function activate(
 
         // Activate the widget
         app.shell.activateById(x11vncWidget.id);
-      }
+      }*/
+     app.commands.addCommand(command, {
+      label: 'Open Desktop',
+      execute: () => execute: () => {
+          window.open(Private.getUrl(), '_blank');
+        }
+     }
   });
 
   // Add the command to the palette.
@@ -122,6 +129,7 @@ function activate(
     menu.fileMenu.addGroup([{ command: command }], 40);
   }
 
+  /*
   // Track and restore the X11 VNC Widget State
   let tracker = new WidgetTracker<X11vncWidget>({ namespace: 'x11vnc' });
   restorer.restore(tracker, {
@@ -152,7 +160,7 @@ function activate(
   });
 
   return Promise.resolve(tracker);
-}
+}*/
 
 
 /**
