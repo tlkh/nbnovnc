@@ -172,7 +172,6 @@ namespace Private {
    let VNC_URL : string;
     
     let base_url = PageConfig.getBaseUrl()
-    let service_url = base_url + 'proxy/' + port;
 
    export function getUrl() : string {
      if (!VNC_URL) {
