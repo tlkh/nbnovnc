@@ -1,11 +1,3 @@
-import {
-  ICommandPalette,
-} from '@jupyterlab/apputils';
-
-import {
-  ISettingRegistry
-} from '@jupyterlab/settingregistry';
-
 import { PageConfig } from '@jupyterlab/coreutils';
 
 import {
@@ -16,9 +8,6 @@ import {
   ILauncher
 } from '@jupyterlab/launcher';
 
-import {
-  IMainMenu
-} from '@jupyterlab/mainmenu';
 
 import '../style/index.css';
 
