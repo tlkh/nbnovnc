@@ -1,27 +1,10 @@
 import {
-  Message
-} from '@lumino/messaging';
-
-//import {
-//Widget
-//} from '@lumino/widgets';
-
-import {
   ICommandPalette,
-  //WidgetTracker,
-  IWidgetTracker,
-  IFrame
 } from '@jupyterlab/apputils';
 
 import {
   ISettingRegistry
 } from '@jupyterlab/settingregistry';
-
-import {
-  //JSONExt,
-  //JSONObject,
-  Token
-} from '@lumino/coreutils'
 
 import { PageConfig } from '@jupyterlab/coreutils';
 
@@ -39,39 +22,15 @@ import {
 
 import '../style/index.css';
 
-/**
- * A VNC widget
- */
-class X11vncWidget extends IFrame {
-  constructor(url: string) {
-    super();
-    this.id = 'jupyterlab-vnc';
-    this.title.label = 'Desktop';
-    this.title.closable = true;
-    this.url = url;
-    this.addClass('jp-vncWidget');
-  }
-
-  setUrl(url: string): void {
-    this.url = url;
-  }
-
-  onUpdateRequest(msg: Message) {
-  }
-}
-
-interface IX11vncTracker extends IWidgetTracker<X11vncWidget> { };
-export const IX11vncTracker = new Token<IX11vncTracker>('@tlkh/jupyterlab-vnc:plugin');
 
 /**
  * Initialization data for the jupyterlab-vnc extension.
  */
-const extension: JupyterFrontEndPlugin<IX11vncTracker> = {
+const extension: JupyterFrontEndPlugin<void> = {
   id: '@tlkh/jupyterlab-vnc:plugin',
   autoStart: true,
   requires: [ICommandPalette, ILayoutRestorer, IMainMenu, ISettingRegistry],
   optional: [ILauncher],
-  provides: IX11vncTracker,
   activate: (app: JupyterFrontEnd) => {
     app.commands.addCommand('x11vnc:open', {
       label: 'Open Desktop',
