@@ -23,6 +23,8 @@ import {
   Token
 } from '@lumino/coreutils'
 
+import { PageConfig } from '@jupyterlab/coreutils';
+
 import {
   JupyterFrontEnd, JupyterFrontEndPlugin, ILayoutRestorer
 } from '@jupyterlab/application';
@@ -165,15 +167,20 @@ const extension: JupyterFrontEndPlugin<IX11vncTracker> = {
   activate: activate
 }
 
+
 namespace Private {
    let VNC_URL : string;
+    
+    let base_url = PageConfig.getBaseUrl()
+    let service_url = base_url + 'proxy/' + port;
 
    export function getUrl() : string {
      if (!VNC_URL) {
        let theUrl=window.location.pathname;
        theUrl=theUrl.replace(/lab\/?$/,"");
        //VNC_URL=theUrl+'proxy/6080/vnc_lite.html?path='+theUrl+'proxy/6080';
-       VNC_URL=theUrl+'novnc/?host=' + theUrl + 'novnc/&resize=remote&autoconnect=1';
+       //base_url + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1'
+       VNC_URL=theUrl+base_url + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1';
      }
      return VNC_URL;
    }
