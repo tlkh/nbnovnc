@@ -8,7 +8,7 @@ import {
 
 import {
   ICommandPalette,
-  WidgetTracker,
+  //WidgetTracker,
   IWidgetTracker,
   IFrame
 } from '@jupyterlab/apputils';
@@ -18,8 +18,8 @@ import {
 } from '@jupyterlab/settingregistry';
 
 import {
-  JSONExt,
-  JSONObject,
+  //JSONExt,
+  //JSONObject,
   Token
 } from '@lumino/coreutils'
 
@@ -73,11 +73,11 @@ function activate(
   menu: IMainMenu,
   settingRegistry: ISettingRegistry,
   launcher: ILauncher | null
-) : Promise<IX11vncTracker> {
+) : Promise<void> {
   console.log('JupyterLab extension jupyterlab-vnc is activated!');
-  const id = extension.id;
+  //const id = extension.id;
   // Create X11 VNC Widget
-  let x11vncWidget: X11vncWidget;
+  //let x11vncWidget: X11vncWidget;
 
   // Add an application command
   const command: string = 'x11vnc:open';
@@ -104,12 +104,11 @@ function activate(
         // Activate the widget
         app.shell.activateById(x11vncWidget.id);
       }*/
-     app.commands.addCommand(command, {
+  app.commands.addCommand(command, {
       label: 'Open Desktop',
-      execute: () => execute: () => {
+      execute: () => {
           window.open(Private.getUrl(), '_blank');
-        }
-     }
+      }
   });
 
   // Add the command to the palette.
