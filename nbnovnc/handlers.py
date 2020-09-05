@@ -8,7 +8,7 @@ class NoVNCHandler(SuperviseAndProxyHandler):
         print("NoVNCHandler Init: %s" % state)
         if not 'vnc' in state:
              state['vnc'] = True
-             os.system('/opt/TurboVNC/bin/vncserver -medqual -SecurityTypes None :1')
+             os.system('/opt/TurboVNC/bin/vncserver -SecurityTypes None :1')
         super().initialize(state)
 
     def get_cmd(self):
