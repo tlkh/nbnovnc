@@ -1,7 +1,7 @@
 import { PageConfig } from '@jupyterlab/coreutils';
 
 import {
-  JupyterFrontEnd, JupyterFrontEndPlugin, ILayoutRestorer
+  JupyterFrontEnd, JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
 import {
