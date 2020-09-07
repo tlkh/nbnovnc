@@ -47,7 +47,7 @@ namespace Private {
       //theUrl = theUrl.replace(/lab\/?$/, "");
       //VNC_URL=theUrl+'proxy/6080/vnc_lite.html?path='+theUrl+'proxy/6080';
       //base_url + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1'
-      VNC_URL = base_url + 'novnc/?host=' + window.location.host + base_url + 'novnc/&resize=remote&autoconnect=1';
+      VNC_URL = base_url + 'novnc/?host=' + base_url.replace("http://", "") + 'novnc/&resize=remote&autoconnect=1';
     }
     return VNC_URL;
   }
